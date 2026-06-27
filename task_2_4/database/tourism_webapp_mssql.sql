@@ -1,7 +1,4 @@
--- =============================================================================
--- Кейс-задача 2.4: База данных веб-приложения «Туристическое агентство»
--- СУБД: Microsoft SQL Server
--- =============================================================================
+-- Кейс-задача 2.4: БД веб-приложения «Туристическое агентство» (MS SQL Server)
 
 IF DB_ID(N'TourismWebApp') IS NOT NULL
 BEGIN
@@ -16,9 +13,7 @@ GO
 USE TourismWebApp;
 GO
 
--- ---------------------------------------------------------------------------
--- Справочник: роли пользователей
--- ---------------------------------------------------------------------------
+-- Справочник: роли
 CREATE TABLE dbo.Roles (
     RoleId   INT IDENTITY(1,1) NOT NULL,
     RoleName NVARCHAR(50)      NOT NULL,
@@ -30,9 +25,7 @@ GO
 CREATE NONCLUSTERED INDEX IX_Roles_RoleName ON dbo.Roles (RoleName);
 GO
 
--- ---------------------------------------------------------------------------
--- Справочник: направления (города/курорты)
--- ---------------------------------------------------------------------------
+-- Справочник: направления
 CREATE TABLE dbo.Destinations (
     DestinationId   INT IDENTITY(1,1) NOT NULL,
     DestinationName NVARCHAR(120)     NOT NULL,
@@ -47,9 +40,7 @@ GO
 CREATE NONCLUSTERED INDEX IX_Destinations_Country ON dbo.Destinations (Country);
 GO
 
--- ---------------------------------------------------------------------------
 -- Справочник: категории туров
--- ---------------------------------------------------------------------------
 CREATE TABLE dbo.TourCategories (
     CategoryId   INT IDENTITY(1,1) NOT NULL,
     CategoryName NVARCHAR(80)      NOT NULL,
@@ -58,9 +49,7 @@ CREATE TABLE dbo.TourCategories (
 );
 GO
 
--- ---------------------------------------------------------------------------
--- Справочник: пользователи системы
--- ---------------------------------------------------------------------------
+-- Справочник: пользователи
 CREATE TABLE dbo.Users (
     UserId       INT IDENTITY(1,1) NOT NULL,
     LoginName    NVARCHAR(50)      NOT NULL,
@@ -81,9 +70,7 @@ GO
 CREATE NONCLUSTERED INDEX IX_Users_RoleId ON dbo.Users (RoleId);
 GO
 
--- ---------------------------------------------------------------------------
--- Переменная информация: туры (каталог + бронирование)
--- ---------------------------------------------------------------------------
+-- Туры (переменная информация)
 CREATE TABLE dbo.Tours (
     TourId        INT IDENTITY(1,1) NOT NULL,
     TourTitle     NVARCHAR(200)     NOT NULL,
@@ -116,9 +103,7 @@ CREATE NONCLUSTERED INDEX IX_Tours_StartDate ON dbo.Tours (StartDate);
 CREATE NONCLUSTERED INDEX IX_Tours_IsPublished ON dbo.Tours (IsPublished);
 GO
 
--- ---------------------------------------------------------------------------
--- Переменная информация: заявки на бронирование
--- ---------------------------------------------------------------------------
+-- Заявки на бронирование
 CREATE TABLE dbo.Bookings (
     BookingId     INT IDENTITY(1,1) NOT NULL,
     TourId        INT               NOT NULL,
@@ -146,9 +131,7 @@ CREATE NONCLUSTERED INDEX IX_Bookings_Status ON dbo.Bookings (Status);
 CREATE NONCLUSTERED INDEX IX_Bookings_BookingDate ON dbo.Bookings (BookingDate);
 GO
 
--- ---------------------------------------------------------------------------
 -- Начальные данные
--- ---------------------------------------------------------------------------
 INSERT INTO dbo.Roles (RoleName) VALUES (N'Admin'), (N'Manager'), (N'Guest');
 
 INSERT INTO dbo.TourCategories (CategoryName) VALUES
@@ -177,9 +160,7 @@ INSERT INTO dbo.Bookings (TourId, ClientName, ClientEmail, ClientPhone, PersonsC
     (1, N'Иванов Иван', N'ivanov@mail.ru', N'+7-900-111-22-33', 2, N'new', 150000.00);
 GO
 
--- ---------------------------------------------------------------------------
--- Хранимая процедура: список опубликованных туров
--- ---------------------------------------------------------------------------
+-- sp_GetPublishedTours
 CREATE OR ALTER PROCEDURE dbo.sp_GetPublishedTours
 AS
 BEGIN

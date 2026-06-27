@@ -1,7 +1,5 @@
--- =============================================================================
--- Кейс-задача 2.3: База данных «Туризм» (MySQL)
--- 4 справочные таблицы + 1 таблица переменной информации (заказы туров)
--- =============================================================================
+-- Кейс-задача 2.3: БД «Туризм» (MySQL)
+-- 4 справочника + tour_orders
 
 DROP DATABASE IF EXISTS tourism_db;
 CREATE DATABASE tourism_db
@@ -10,9 +8,7 @@ CREATE DATABASE tourism_db
 
 USE tourism_db;
 
--- ---------------------------------------------------------------------------
--- Справочник 1: страны
--- ---------------------------------------------------------------------------
+-- Справочник: страны
 CREATE TABLE countries (
     country_id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
     country_name VARCHAR(100) NOT NULL,
@@ -24,9 +20,7 @@ CREATE TABLE countries (
 
 CREATE INDEX idx_countries_name ON countries (country_name);
 
--- ---------------------------------------------------------------------------
--- Справочник 2: города
--- ---------------------------------------------------------------------------
+-- Справочник: города
 CREATE TABLE cities (
     city_id    INT UNSIGNED NOT NULL AUTO_INCREMENT,
     city_name  VARCHAR(100) NOT NULL,
@@ -40,9 +34,7 @@ CREATE TABLE cities (
 
 CREATE INDEX idx_cities_country ON cities (country_id);
 
--- ---------------------------------------------------------------------------
--- Справочник 3: типы туров
--- ---------------------------------------------------------------------------
+-- Справочник: типы туров
 CREATE TABLE tour_types (
     tour_type_id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
     type_name      VARCHAR(80)  NOT NULL,
@@ -51,9 +43,7 @@ CREATE TABLE tour_types (
     CONSTRAINT uq_tour_types_name UNIQUE (type_name)
 ) ENGINE=InnoDB;
 
--- ---------------------------------------------------------------------------
--- Справочник 4: клиенты
--- ---------------------------------------------------------------------------
+-- Справочник: клиенты
 CREATE TABLE clients (
     client_id  INT UNSIGNED NOT NULL AUTO_INCREMENT,
     last_name  VARCHAR(80)  NOT NULL,
@@ -66,9 +56,7 @@ CREATE TABLE clients (
 
 CREATE INDEX idx_clients_last_name ON clients (last_name);
 
--- ---------------------------------------------------------------------------
--- Переменная информация: заказы туров
--- ---------------------------------------------------------------------------
+-- Заказы туров (переменная информация)
 CREATE TABLE tour_orders (
     order_id     INT UNSIGNED  NOT NULL AUTO_INCREMENT,
     client_id    INT UNSIGNED  NOT NULL,
@@ -103,9 +91,7 @@ CREATE INDEX idx_orders_tour_type ON tour_orders (tour_type_id);
 CREATE INDEX idx_orders_status    ON tour_orders (status);
 CREATE INDEX idx_orders_start_date ON tour_orders (start_date);
 
--- ---------------------------------------------------------------------------
 -- Тестовые данные
--- ---------------------------------------------------------------------------
 INSERT INTO countries (country_name, country_code) VALUES
     ('Россия', 'RU'),
     ('Турция', 'TR'),
@@ -134,9 +120,7 @@ INSERT INTO tour_orders (
     (1, 3, 1, '2026-03-01', '2026-06-10', '2026-06-20', 2, 85000.00, 'confirmed', 'All inclusive'),
     (2, 4, 2, '2026-03-05', '2026-09-01', '2026-09-08', 1, 62000.00, 'new', NULL);
 
--- ---------------------------------------------------------------------------
--- Пример отчётного запроса
--- ---------------------------------------------------------------------------
+-- Отчётный запрос
 SELECT
     o.order_id,
     c.last_name,

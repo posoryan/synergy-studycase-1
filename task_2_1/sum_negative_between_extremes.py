@@ -66,9 +66,9 @@ def read_array_from_input() -> list[float]:
 def print_result(arr: list[float]) -> None:
     a = analyze_array(arr)
     print(f"массив: {a.arr}")
-    print(f"max: {a.max_val:g} (@{a.max_index})  min: {a.min_val:g} (@{a.min_index})")
-    print(f"между: {a.between if a.between else '—'}")
-    print(f"отрицательные: {a.negatives if a.negatives else '—'}")
+    print(f"max: {a.max_val:g} (индекс {a.max_index})  min: {a.min_val:g} (индекс {a.min_index})")
+    print(f"между: {a.between if a.between else '-'}")
+    print(f"отрицательные: {a.negatives if a.negatives else '-'}")
     print(f"сумма: {a.result:g}")
 
 

@@ -105,36 +105,36 @@ class Bicycle(Vehicle):
 
 
 def demonstrate_polymorphism(vehicles: list[Vehicle]) -> None:
-    print("\n--- Полиморфный вызов move() ---")
+    print("\nПолиморфный вызов move():")
     for vehicle in vehicles:
         print(vehicle.move(15))
 
 
 def main() -> None:
-    print("=== Кейс-задача 2.2: базовый класс и наследники ===\n")
+    print("Кейс-задача 2.2\n")
 
     car = Car("Toyota", "Camry", 2022, "бензин", 60.0)
     bike = Bicycle("Trek", "Marlin 7", 2023, 21)
 
-    print("--- Создание объектов ---")
+    print("Создание объектов:")
     print(car.get_info())
     print(bike.get_info())
 
-    print("\n--- Вызов методов наследников ---")
+    print("\nМетоды наследников:")
     print(car.refuel(40))
     print(car.move(50))
     print(bike.shift_gear(5))
     print(bike.move(10))
 
-    print("\n--- Переопределение service_check (super()) ---")
+    print("\nservice_check():")
     print(car.service_check())
     print(bike.service_check())
 
     demonstrate_polymorphism([car, bike])
 
-    print("\n--- isinstance / issubclass ---")
-    print(f"car — Vehicle? {isinstance(car, Vehicle)}")
-    print(f"Bicycle — подкласс Vehicle? {issubclass(Bicycle, Vehicle)}")
+    print("\nisinstance / issubclass:")
+    print(f"car - Vehicle? {isinstance(car, Vehicle)}")
+    print(f"Bicycle - подкласс Vehicle? {issubclass(Bicycle, Vehicle)}")
 
 
 if __name__ == "__main__":

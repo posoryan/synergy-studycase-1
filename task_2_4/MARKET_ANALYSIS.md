@@ -124,4 +124,4 @@
 3. **Data Access** — FireDAC / ADO → хранимые процедуры и SQL
 4. **Database** — таблицы Roles, Users, Destinations, TourCategories, Tours, Bookings
 
-Подробная пошаговая инструкция по установке и разработке — в файле [TZ_STEP_BY_STEP.md](TZ_STEP_BY_STEP.md).
+Запуск и проверка — в [README.md](README.md).
